@@ -13,5 +13,11 @@ Route::prefix(config('lab2.route_prefix'))
     ->group(function (): void {
         Route::get('/', 'index')->name('index');
         Route::get('/about', 'about')->name('about');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+        Route::get('/{slug}/edit', 'edit')->name('edit');
+        Route::patch('/{slug}', 'update')->name('update');
+        Route::get('/{slug}/confirm-delete', 'confirmDelete')->name('confirm-delete');
+        Route::delete('/{slug}', 'destroy')->name('destroy');
         Route::get('/{slug}', 'show')->name('show');
     });

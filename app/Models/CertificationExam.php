@@ -2,16 +2,26 @@
 
 namespace App\Models;
 
-final readonly class CertificationExam
+use Illuminate\Database\Eloquent\Model;
+
+class CertificationExam extends Model
 {
-    public function __construct(
-        public int $id,
-        public string $slug,
-        public string $title,
-        public string $provider,
-        public int $questions,
-        public int $minutes,
-    ) {}
+    protected $fillable = [
+        'slug',
+        'title',
+        'provider',
+        'questions',
+        'minutes',
+        'notes',
+        'urgent',
+        'justification',
+    ];
+
+    protected $casts = [
+        'urgent' => 'boolean',
+        'questions' => 'integer',
+        'minutes' => 'integer',
+    ];
 
     public function minutesPerQuestion(): float
     {
@@ -25,22 +35,5 @@ final readonly class CertificationExam
         if ($mpq < 1.5) return 'intensive';
         if ($mpq < 2.5) return 'standard';
         return 'relaxed';
-    }
-
-    public static function fromArray(array $data): self
-    {
-        return new self(...$data);
-    }
-
-    public function toArray(): array
-    {
-        return [
-            'id' => $this->id,
-            'slug' => $this->slug,
-            'title' => $this->title,
-            'provider' => $this->provider,
-            'questions' => $this->questions,
-            'minutes' => $this->minutes,
-        ];
     }
 }
