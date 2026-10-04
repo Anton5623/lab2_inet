@@ -14,11 +14,11 @@ class StoreCertificationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:' . config('lab2.title_max'),
+            'title' => 'required|string|max:'.config('lab2.title_max'),
             'provider' => 'required|string|in:Amazon,Microsoft,Google,Cisco,CompTIA,PMI,AXELOS,Scrum.org,Oracle',
             'questions' => 'required|integer|min:10|max:300',
             'minutes' => 'required|integer|min:15|max:400',
-            'notes' => 'nullable|string|min:' . config('lab2.notes_min') . '|max:1000',
+            'notes' => 'nullable|string|min:'.config('lab2.notes_min').'|max:1000',
             'urgent' => 'boolean',
             'justification' => 'required_if:urgent,1|nullable|string|min:30|max:1000',
         ];

@@ -55,7 +55,7 @@ class CatalogCrudTest extends TestCase
             'minutes' => 60,
         ]);
 
-        $response = $this->get('/certifications/' . $exam->slug);
+        $response = $this->get('/certifications/'.$exam->slug);
         $response->assertOk();
         $response->assertSee('Show Test');
     }
@@ -76,7 +76,7 @@ class CatalogCrudTest extends TestCase
             'minutes' => 40,
         ]);
 
-        $response = $this->get('/certifications/' . $exam->slug . '/edit');
+        $response = $this->get('/certifications/'.$exam->slug.'/edit');
         $response->assertOk();
         $response->assertSee('Edit Test');
     }
@@ -91,14 +91,14 @@ class CatalogCrudTest extends TestCase
             'minutes' => 50,
         ]);
 
-        $response = $this->patch('/certifications/' . $exam->slug, [
+        $response = $this->patch('/certifications/'.$exam->slug, [
             'title' => 'New Title',
             'provider' => 'Oracle',
             'questions' => 25,
             'minutes' => 50,
         ]);
 
-        $response->assertRedirect('/certifications/' . $exam->slug);
+        $response->assertRedirect('/certifications/'.$exam->slug);
         $this->assertDatabaseHas('certification_exams', ['title' => 'New Title']);
     }
 
@@ -112,7 +112,7 @@ class CatalogCrudTest extends TestCase
             'minutes' => 80,
         ]);
 
-        $response = $this->get('/certifications/' . $exam->slug . '/confirm-delete');
+        $response = $this->get('/certifications/'.$exam->slug.'/confirm-delete');
         $response->assertOk();
         $response->assertSee('Видалити іспит');
     }
@@ -127,7 +127,7 @@ class CatalogCrudTest extends TestCase
             'minutes' => 20,
         ]);
 
-        $response = $this->delete('/certifications/' . $exam->slug);
+        $response = $this->delete('/certifications/'.$exam->slug);
         $response->assertRedirect('/certifications');
         $this->assertDatabaseMissing('certification_exams', ['slug' => 'test-destroy']);
     }

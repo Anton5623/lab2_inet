@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Contracts\CatalogRepository;
 use App\Http\Requests\StoreCertificationRequest;
 use App\Http\Requests\UpdateCertificationRequest;
-use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -23,10 +23,10 @@ final class CatalogController extends Controller
         $maxMinutes = $request->integer('max_minutes', 0);
 
         $items = $this->repository->all()
-            ->filter(fn($item) => $query === ''
+            ->filter(fn ($item) => $query === ''
                 || str_contains(mb_strtolower($item->title), mb_strtolower($query)))
-            ->filter(fn($item) => $provider === '' || $item->provider === $provider)
-            ->filter(fn($item) => $maxMinutes === 0 || $item->minutes <= $maxMinutes)
+            ->filter(fn ($item) => $provider === '' || $item->provider === $provider)
+            ->filter(fn ($item) => $maxMinutes === 0 || $item->minutes <= $maxMinutes)
             ->values();
 
         return view('catalog.index', compact('items', 'query', 'provider', 'maxMinutes'));
@@ -40,7 +40,7 @@ final class CatalogController extends Controller
     public function store(StoreCertificationRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $data['slug'] = Str::slug($data['title']) . '-' . time();
+        $data['slug'] = Str::slug($data['title']).'-'.time();
         $data['urgent'] = $request->boolean('urgent');
 
         $this->repository->create($data);

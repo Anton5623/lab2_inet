@@ -31,9 +31,16 @@ class CertificationExam extends Model
     public function intensityLabel(): string
     {
         $mpq = $this->minutesPerQuestion();
-        if ($mpq < 1.0) return 'very-intensive';
-        if ($mpq < 1.5) return 'intensive';
-        if ($mpq < 2.5) return 'standard';
+        if ($mpq < 1.0) {
+            return 'very-intensive';
+        }
+        if ($mpq < 1.5) {
+            return 'intensive';
+        }
+        if ($mpq < 2.5) {
+            return 'standard';
+        }
+
         return 'relaxed';
     }
 }

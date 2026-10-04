@@ -26,6 +26,7 @@ class ArrayCatalogRepository implements CatalogRepository
     public function update(CertificationExam $exam, array $data): CertificationExam
     {
         $exam->update($data);
+
         return $exam->fresh();
     }
 

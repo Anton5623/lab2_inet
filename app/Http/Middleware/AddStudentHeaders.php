@@ -13,6 +13,7 @@ final class AddStudentHeaders
         $response = $next($request);
         $response->headers->set('X-Student-Variant', (string) config('lab2.variant'));
         $response->headers->set('X-Lab-Check', (string) config('lab2.check_code'));
+
         return $response;
     }
 }

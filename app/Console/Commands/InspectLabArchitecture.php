@@ -8,6 +8,7 @@ use Illuminate\Console\Command;
 final class InspectLabArchitecture extends Command
 {
     protected $signature = 'lab:inspect';
+
     protected $description = 'Shows LR2 architecture diagnostics';
 
     public function handle(): int
@@ -20,6 +21,7 @@ final class InspectLabArchitecture extends Command
             ['Repository', app(CatalogRepository::class)::class],
             ['Environment', app()->environment()],
         ]);
+
         return self::SUCCESS;
     }
 }

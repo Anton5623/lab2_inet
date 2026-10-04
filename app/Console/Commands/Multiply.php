@@ -7,6 +7,7 @@ use Illuminate\Console\Command;
 class Multiply extends Command
 {
     protected $signature = 'multiply {a} {b}';
+
     protected $description = 'Множить два числа';
 
     public function handle(): int
@@ -21,4 +22,3 @@ class Multiply extends Command
         return self::SUCCESS;
     }
 }
-
