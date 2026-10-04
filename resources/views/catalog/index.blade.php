@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
+@section('title', 'Список іспитів')
+
 @section('content')
     <h1>{{ config('lab2.title') }}</h1>
+
+    <p><a href="{{ route('catalog.create') }}">+ Додати іспит</a></p>
 
     <form method="GET" action="{{ route('catalog.index') }}">
         <label>Пошук: <input name="q" value="{{ $query }}"></label>
@@ -12,13 +16,9 @@
 
     <p>Знайдено: {{ $items->count() }}</p>
 
-    @forelse ($items as $item)
-        <article>
-            <h2><a href="{{ route('catalog.show', $item->slug) }}">{{ $item->title }}</a></h2>
-            <p>Провайдер: {{ $item->provider }} | Питань: {{ $item->questions }} | Хвилин: {{ $item->minutes }}</p>
-            <p>Хвилин на питання: {{ $item->minutesPerQuestion() }} ({{ $item->intensityLabel() }})</p>
-        </article>
+    @forelse ($items as $exam)
+        <x-certifications.summary :exam="$exam" />
     @empty
-        <p>Нічого не знайдено.</p>
+        <p>Іспитів не знайдено.</p>
     @endforelse
 @endsection
