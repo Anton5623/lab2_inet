@@ -2,17 +2,27 @@
 
 namespace Tests\Feature;
 
+use Database\Seeders\CertificationExamSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-final class CatalogTest extends TestCase
+class CatalogTest extends TestCase
 {
+    use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed(CertificationExamSeeder::class);
+    }
+
     public function test_index_is_available_and_has_variant_header(): void
     {
         $response = $this->get('/' . config('lab2.route_prefix'));
 
         $response->assertOk()
             ->assertHeader('X-Student-Variant', (string) config('lab2.variant'))
-            ->assertSee('Знайдено');
+            ->assertSee('Сертифікаційні іспити');
     }
 
     public function test_known_item_is_shown(): void
@@ -46,6 +56,6 @@ final class CatalogTest extends TestCase
     public function test_about_page_is_available(): void
     {
         $response = $this->get('/' . config('lab2.route_prefix') . '/about');
-        $response->assertOk()->assertSee('Варіант');
+        $response->assertOk()->assertSee('Про застосунок');
     }
 }
